@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("NEXT_PUBLIC_DATABASE_URL")
+}
+
+// Example model. Replace or add your own models below.
+model User {
+  id        Int      @id @default(autoincrement()) 
+  email     String   @unique
+  firstName String
+  lastName  String
+  password  String
+  createdAt DateTime @default(now()) 
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
