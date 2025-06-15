@@ -1,5 +1,4 @@
 import './globals.css';
-import { CartProvider } from '../context/CartContext';
 
 export const metadata = {
   title: 'Desilicious - Authentic Desi Restaurant',
@@ -14,9 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <CartProvider>
-          {children}
-        </CartProvider>
+        {children}
       </body>
     </html>
   );
