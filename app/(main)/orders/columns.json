@@ -1,0 +1,52 @@
+[
+  {
+    "title": "SR #",
+    "dataIndex": "serial",
+    "key": "serial"
+  },
+  {
+    "title": "Order ID",
+    "dataIndex": "orderId",
+    "key": "orderId"
+  },
+  {
+    "title": "Customer Name",
+    "dataIndex": "customerName",
+    "key": "customerName"
+  },
+  {
+    "title": "Contact Number",
+    "dataIndex": "contactNumber",
+    "key": "contactNumber"
+  },
+  {
+    "title": "Order Status",
+    "dataIndex": "status",
+    "key": "status"
+  },
+  {
+    "title": "Order Date",
+    "dataIndex": "orderDate",
+    "key": "orderDate"
+  },
+  {
+    "title": "Amount Paid",
+    "dataIndex": "totalAmount",
+    "key": "totalAmount"
+  },
+  {
+    "title": "Order Type",
+    "dataIndex": "orderType",
+    "key": "orderType"
+  },
+  {
+    "title": "Payment Method",
+    "dataIndex": "paymentMethod",
+    "key": "paymentMethod"
+  },
+  {
+    "title": "Action",
+    "dataIndex": "action",
+    "key": "action"
+  }
+]

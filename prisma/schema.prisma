@@ -18,3 +18,18 @@ model User {
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
 }
+
+model Order {
+  id            Int      @id @default(autoincrement())
+  orderId       String   @unique
+  customerName  String
+  contactNumber String
+  status        String
+  orderDate     DateTime
+  totalAmount   Int
+  orderType     String
+  paymentMethod String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?
+}

@@ -9,3 +9,8 @@ export interface CreateUser {
   firstName: string;
   lastName: string;
 }
+
+export interface TableData {
+  dataSource: any[];
+  columns: any[];
+}

@@ -1,6 +1,5 @@
 'use client';
-import { deleteCookie, isSessionCookiePresent } from "@/common/helper";
-import { Button } from "antd";
+import { isSessionCookiePresent } from "@/common/helper";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react"
 
@@ -14,18 +13,9 @@ const Dashboard = () => {
     }
   }, [])
 
-  const handleLogout = () => {
-    deleteCookie("accessToken");
-    router.push("/login");
-  }
-
   return (
     <div>
-      <div>Dashboard</div>
-      <Button
-        type="primary"
-        onClick={handleLogout}
-      >Logout</Button>
+      dashboard
     </div>
   )
 }
