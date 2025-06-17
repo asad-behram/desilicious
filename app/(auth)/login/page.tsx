@@ -120,19 +120,6 @@ const Login = () => {
               Sign In
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-
-            <div className="mt-8 text-center">
-              <p className="text-gray-600">
-                Don&apos;t have an account?
-                <Link
-                  href='/signup'
-                  className="ml-2 text-indigo-600 hover:text-indigo-700 font-medium transition-colors"
-                >
-                  Sign up
-                </Link>
-              </p>
-            </div>
-
           </div>
         </div>
       </div>
