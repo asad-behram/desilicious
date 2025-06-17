@@ -1,17 +1,59 @@
 'use client'
 
-import { Input } from 'antd';
+import { Button, Input } from 'antd';
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { IResponse } from '@/common/interface';
+import { v4 as uuidv4 } from 'uuid';
+import { isSessionCookiePresent, setSessionCookie } from '@/common/helper';
 
 const Signup = () => {
+  //constants
+  const router = useRouter();
   //string state variables
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+
+  useEffect(() => {
+    if (isSessionCookiePresent()) {
+      router.push('/dashboard');
+    }
+  }, [])
+
+
+  const handleSignup = async () => {
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+      alert('Please fill in all fields');
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, email, password }),
+      });
+      const data: IResponse = await response.json();
+      if (data.success) {
+        const token = uuidv4();
+        setSessionCookie(token)
+        router.push('/dashboard');
+      } else {
+        alert('Signup failed');
+      }
+    } catch (error) {
+      alert(error);
+    }
+  }
 
   return (
     <>
@@ -111,13 +153,14 @@ const Signup = () => {
                 </div>
               </div>
 
-              <button
-                type="button"
+              <Button
+                type="primary"
+                onClick={handleSignup}
                 className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 rounded-xl font-medium hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
               >
                 Sign Up
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Button>
             </div>
 
             {/* Switch Form */}

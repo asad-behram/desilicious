@@ -1,14 +1,48 @@
 'use client'
 
 import { Eye, EyeOff, ArrowRight } from 'lucide-react';
-import { Input } from 'antd';
-import { useState } from 'react';
+import { Button, Input } from 'antd';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { isSessionCookiePresent, setSessionCookie } from '@/common/helper';
+import { login } from './api';
+import { IResponse } from '@/common/interface';
+import { v4 as uuidv4 } from 'uuid';
 
 const Login = () => {
   //string variables
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isSessionCookiePresent()) {
+      router.push('/dashboard');
+    }
+  }, [])
+
+  //aysnc function to handle login
+  const handleLogin = async () => {
+    if (!email || !password) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    login(email).then((response: IResponse) => {
+      if(response.success) {
+        if(response.content.password === password) {
+          const token = uuidv4();
+          setSessionCookie(token);
+          router.push('/dashboard');
+        } else {
+          alert('password is incorrect');
+        }
+      } else {
+        alert('something went wrong, please try again later');
+      }
+    })
+  }
 
   return (
     <>
@@ -78,19 +112,20 @@ const Login = () => {
               </a>
             </div>
 
-            <button
-              type="button"
+            <Button
+              type='primary'
+              onClick={handleLogin}
               className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 rounded-xl font-medium hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
             >
               Sign In
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Button>
 
             <div className="mt-8 text-center">
               <p className="text-gray-600">
-                Don't have an account?
+                Don&apos;t have an account?
                 <Link
-                href='/signup'
+                  href='/signup'
                   className="ml-2 text-indigo-600 hover:text-indigo-700 font-medium transition-colors"
                 >
                   Sign up

@@ -1,4 +1,4 @@
-import './globals.css';
+import '../globals.css';
 
 export const metadata = {
   title: 'Desilicious - Authentic Desi Restaurant',
